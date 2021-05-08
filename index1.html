@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <audio id="clip1">
+        <source src="audio-green.mp3"></source>
+    </audio>
+    <audio id="clip2">
+        <source src="audio-red.mp3"></source>
+    </audio>
+    <audio id="clip3">
+        <source src="audio-blue.mp3"></source>
+    </audio>
+    <audio id="clip4">
+        <source src="audio-yellow.mp3"></source>
+    </audio>
+    <audio id="clip5">
+        <source src="game_over.mp3"></source>
+    </audio>
+    <audio id="clip6">
+        <source src="win.mp3"></source>
+    </audio>
+    <title>GENIUS</title>
+
+</head>
+
+<body>
+
+    <!--  CÓDIGO GERAL -->
+    <section id="main">
+
+        <!--HEADER PRINCIPAL-->
+        <header id="header">
+            <h1>GENIUS</h1>
+        </header>
+
+        <!-- HEADER GAME  -->
+        <header id="headerGame">
+            <div class="row">
+                <div class="score">score
+                    <div id="display-score">0</div>
+                </div>
+                <div class="titlesimon">
+                    <h2>GENIUS</h2>
+                </div>
+                <div class="highest">highest
+                    <div id="display-highest">0</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- BLOCO PRINCIPAL INTERNO -->
+        <section id="content">
+
+            <!--  MENU  -->
+            <section class="menu" id="menu">
+                <p><a href="#" onclick="simon.menu(1)">start game</a></p>
+                <p>
+                    <a href="#" onclick="simon.menu(2)">settings</a>
+                </p>
+                <p>
+                    <a href="#" onclick="simon.menu(3)">help</a>
+                </p>
+            </section>
+
+            <!-- CONFIGURAÇÃO -->
+            <section class="settings" id="settings">
+                <p>
+                    <label for="difficulty">Select the level of difficulty</label><br />
+                    <input type="radio" id="d1" name="difficulty" value="1" onclick="simon.selectDifficulty(1, 15000)"> <label for="d1">easy</label>
+                    <!--Esse label é utilizado para selecionar ao clicar no NOME da opção-->
+                    <input type="radio" id="d2" name="difficulty" value="2" onclick="simon.selectDifficulty(2, 20000)"><label for="d2">normal</label>
+                    <input type="radio" id="d3" name="difficulty" value="3" onclick="simon.selectDifficulty(3, 35000)"><label for="d3">hard</label>
+                </p>
+                <p>
+                    <label for="controls">Control preferences</label><br />
+                    <input type="radio" id="c1" name="control" value="1" checked onclick="simon.displayOptionsKey(1)"><label for="c1">mouse</label>
+                    <input type="radio" id="c2" name="control" value="2" onclick="simon.displayOptionsKey(2)"><label for="c2">keyboard/mouse</label>
+                </p>
+
+                <!--exibe apenas quando clica na preferência 2(teclado)-->
+                <p id="optionKey">
+                    <label>Assign key to color</label><br /><br />
+                    <input type="button" class="keys" value="green" id="key1" onclick="simon.functionReadKey(1)">
+                <input type="text" class="keys" id="k1" placeholder="green" disabled><br /><span id="j1"></span>
+                    
+                    <input type="button" class="keys" value="yellow" id="key3" onclick="simon.functionReadKey(3)">
+                    <input type="text" class="keys" id="k3" placeholder="yellow" disabled><br />
+                    
+                    <input type="button" class="keys" value="red" id="key2" onclick="simon.functionReadKey(2)">
+                    <input type="text" class="keys" id="k2" placeholder="red" disabled><br />
+                    
+                    <input type="button" class="keys" value="blue" id="key4" onclick="simon.functionReadKey(4)">
+                    <input type="text" class="keys" id="k4" placeholder="blue" disabled>
+                </p>
+                
+
+                    <p id="color-model">Model Hover</p>
+                    <img src="/model-genius.png" id="model-genius" >
+                
+
+                <p><button id="save" onclick="simon.menu(0)">back</button></p>
+
+            </section>
+            <!-- CONFIGURAÇÃO FIM -->
+
+
+            <!-- AJUDA -->
+            <section class="howtoplay" id="howtoplay">
+                <h2>How to play</h2>
+                <div class="text-howtoplay">
+                    <p>Step 1 - Choose the difficulty and controls.</p>
+
+                    <p>Step 2 - Press the START button. Simon will give the first signal. Repeat the signal by clicking on the corresponding color or pressing the correspondent key.</p>
+
+                    <p>Step 3 - Simon will duplicate the first signal and add one. Repeat these two signals like in the previous step.</p>
+
+                    <p>Step 4 - Simon will duplicate these first two signals and add one.</p>
+
+                    <p>Step 5 - Continue playing as long as you can repeat each sequence of signals correctly. After each signal in a sequence, Simon automatically speeds up.</p>
+
+                    <p>Step 6 - If you fail to repeat a sequence exactly, or if you take too long to repeat a signal, Simon responds with a sound. This means you've lost, and the sequence of signals ends.</p>
+
+                </div>
+                <p class="button-back"><button id="save" onclick="simon.menu(5)">back</button></p>
+            </section>
+            <!-- AJUDA  FIM -->
+            
+             <!--  GAME -->
+             <section class="game" id="game">
+                <div id="circle">
+
+                    <button onclick="simon.startGame()" id="button-start">Play</button>
+
+                </div>
+                <div class="row">
+                    <div id="b1" class="b1" onclick="simon.clicks(0)"></div>
+                    <div id="b2" class="b2" onclick="simon.clicks(1)"></div>
+                </div>
+                <div class="row">
+                    <div id="b4" class="b4" onclick="simon.clicks(3)"></div>
+                    <div id="b3" class="b3" onclick="simon.clicks(2)"></div>
+                </div>
+
+            </section>
+            
+            <div class="row" id="row">
+                <p>
+                    <button id="reset" onclick="simon.reset()">reset</button>
+                    <button id="quit" class="quit" onclick="window.location.reload(true)">quit</button>
+                    <button id="button-replay" onclick="simon.replay();">replay</button>
+                    <button id="back" onclick="simon.menu(4);">back</button>
+
+                </p>
+            </div>
+            <!--  FIM GAME -->
+        </section>
+
+        <!--  RODAPÉ -->
+        <footer id="footer">
+            Created by Sono Polifasico
+        </footer>
+        <!--  RODAPÉ -->
+
+    </section>
+
+<script type="text/javascript" src="functions1.js"></script>
+</body>
+
+</html>
