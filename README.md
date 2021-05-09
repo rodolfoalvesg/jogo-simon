@@ -1,7 +1,7 @@
-==================================
+
    Repositório Projeto Genius   
   Authors: Felipe and Rodolfo   
-==================================
+     =====================
 
 Jogo Genius Simon desenvolvido como parte do projeto de aprendizangem 
 proposto pela Alpha Ed tech. 
