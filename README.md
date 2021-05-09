@@ -10,6 +10,5 @@ Lnguagens e recursos utilizados:
 - Figma
 - HTML 5
 - CSS3
-- JavaScript
-- Ajax
-- NodeJS para servir as Páginas
+- JavaScrip
+- Nginx
